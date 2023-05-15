@@ -1,0 +1,78 @@
+##################PRODUCTS###########################
+CREATE TABLE `products` (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  client_id INT,
+  FOREIGN KEY (client_id) REFERENCES clients(id)
+);
+
+ALTER TABLE products
+ADD CONSTRAINT FK_products_clients
+FOREIGN KEY (client_id) REFERENCES clients(id);
+
+
+##################CLIENTS###########################
+
+CREATE TABLE `clients` (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL
+);
+
+##################ORDERS###########################
+
+CREATE TABLE `orders` (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  client_id INT NOT NULL,
+  FOREIGN KEY (client_id) REFERENCES clients(id)
+);
+
+##################ORDER_PRODUCT###########################
+
+CREATE TABLE `order_product` (
+  order_id INT,
+  product_id INT,
+  FOREIGN KEY (order_id) REFERENCES orders(id),
+  FOREIGN KEY (product_id) REFERENCES products(id),
+  PRIMARY KEY (order_id, product_id)
+);
+
+
+###########################INSERTS############################################################
+
+
+-- Insert data into `client` table
+INSERT INTO `clients` (name, email)
+VALUES
+  ('Robert Martin', 'rmartin@gmail.com'),
+  ('Angelo Anaconda', 'anacondangel@gmail.com'),
+  ('Roy Keane', 'kenoroy@gmail.com');
+
+-- Insert data into `product` table
+SET FOREIGN_KEY_CHECKS = 0;
+INSERT INTO `products` (name, description, price, client_id)
+VALUES
+  ('Bike', 'Bike MTB Size 29', 1999.99, 1),
+  ('Laptop Dell', 'Laptop Dell VOSTRO 3500', 3999.99, 1),
+  ('SmarTV Samsung', 'SmarTV Samsung 32"', 1599.99, 1),
+  ('Laptop Dell', 'Laptop Dell VOSTRO 3500', 3999.99, 2),
+  ('SmarTV Samsung', 'SmarTV Samsung 32"', 1599.99, 2),
+  ('SmarTV Samsung', 'SmarTV Samsung 32"', 1599.99, 3);
+
+-- Insert data into `order` table
+INSERT INTO `orders` (client_id) VALUES
+  (1),
+  (2),
+  (3),
+  (1),
+  (2);
+  
+  -- Insert data into `order_product` table
+  INSERT INTO `order_product` (order_id, product_id) VALUES
+  (1, 1),
+  (1, 2),
+  (2, 3),
+  (3, 4),
+  (4, 5);

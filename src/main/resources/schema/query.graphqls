@@ -1,0 +1,38 @@
+type Query {
+    helloWorld : String
+    fullName(fullNameRequest : FullNameRequest): String
+    getProduct(id: ID!): Product
+    getAllProducts: [Product!]!
+    getClient(id: ID!): Client
+    getAllClients: [Client!]!
+    getOrder(id: ID!): Order
+    getAllOrders: [Order!]!
+    getClientsByProduct(productId: ID!): [Client!]!
+    getClientsByProductName(productName: String!): [Client]
+}
+
+input FullNameRequest{
+    firstName : String
+    surName : String
+}
+
+type Product {
+    id: ID!
+    name: String!
+    description: String!
+    price: Float!
+}
+
+type Client {
+    id: ID!
+    name: String!
+    email: String!
+    products: [Product]
+}
+
+
+type Order {
+    id: ID!
+    client: Client!
+    products: [Product!]!
+}

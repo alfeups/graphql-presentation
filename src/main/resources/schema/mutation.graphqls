@@ -1,0 +1,22 @@
+type Mutation {
+    createClient(createClientRequest : CreateClientRequest) : CreateClientResponse
+}
+
+input CreateClientRequest {
+    name: String!
+    email: String!
+    products: [CreateProductRequest]
+}
+
+input CreateProductRequest {
+    name: String!
+    description: String!
+    price: Float!
+}
+
+type CreateClientResponse {
+    id: ID
+    name: String
+    email: String
+    products: [Product]
+}

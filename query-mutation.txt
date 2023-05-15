@@ -1,0 +1,38 @@
+query GetClientsByProduct {
+  getClientsByProduct(productId: 1) {
+    id
+    name
+    email
+  }
+}
+
+
+
+mutation {
+  createClient(createClientRequest: {
+    name: "John Doe",
+    email: "john@example.com",
+    products: [
+      {
+        name: "Mouse",
+        description: "Mouse sem fio Logitech",
+        price: 199.99
+      },
+      {
+        name: "WebCam",
+        description: "WebCam Dell 4K",
+        price: 1499.99
+      }
+    ]
+  }) {
+    id
+    name
+    email
+    products {
+      id
+      name
+      description
+      price
+    }
+  }
+}
